@@ -7,7 +7,7 @@ use Test::More;
 plan tests => 1;
 
 BEGIN {
-    use_ok( 'Catalyst::Plugin::Authentication::Store::DataStore' ) || print "Bail out!\n";
+    use_ok( 'Catalyst::Authentication::Store::DataStore' ) || print "Bail out!\n";
 }
 
-diag( "Testing Catalyst::Plugin::Authentication::Store::DataStore $Catalyst::Plugin::Authentication::Store::DataStore::VERSION, Perl $], $^X" );
+diag( "Testing Catalyst::Authentication::Store::DataStore $Catalyst::Authentication::Store::DataStore::VERSION, Perl $], $^X" );

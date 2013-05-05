@@ -1,4 +1,4 @@
-Catalyst-Plugin-Authentication-Store-DataStore
+Catalyst-Authentication-Store-DataStore
 
 The README is used to introduce the module and provide instructions on
 how to install the module, any machine dependencies it may have (for
@@ -26,21 +26,21 @@ SUPPORT AND DOCUMENTATION
 After installing, you can find documentation for this module with the
 perldoc command.
 
-    perldoc Catalyst::Plugin::Authentication::Store::DataStore
+    perldoc Catalyst::Authentication::Store::DataStore
 
 You can also look for information at:
 
     RT, CPAN's request tracker (report bugs here)
-        http://rt.cpan.org/NoAuth/Bugs.html?Dist=Catalyst-Plugin-Authentication-Store-DataStore
+        http://rt.cpan.org/NoAuth/Bugs.html?Dist=Catalyst-Authentication-Store-DataStore
 
     AnnoCPAN, Annotated CPAN documentation
-        http://annocpan.org/dist/Catalyst-Plugin-Authentication-Store-DataStore
+        http://annocpan.org/dist/Catalyst-Authentication-Store-DataStore
 
     CPAN Ratings
-        http://cpanratings.perl.org/d/Catalyst-Plugin-Authentication-Store-DataStore
+        http://cpanratings.perl.org/d/Catalyst-Authentication-Store-DataStore
 
     Search CPAN
-        http://search.cpan.org/dist/Catalyst-Plugin-Authentication-Store-DataStore/
+        http://search.cpan.org/dist/Catalyst-Authentication-Store-DataStore/
 
 
 LICENSE AND COPYRIGHT

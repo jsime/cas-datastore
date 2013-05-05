@@ -50,7 +50,7 @@ TODO: {
     "placeholder date/time"       => qr(Date/time)
   );
 
-  module_boilerplate_ok('lib/Catalyst/Plugin/Authentication/Store/DataStore.pm');
+  module_boilerplate_ok('lib/Catalyst/Authentication/Store/DataStore.pm');
 
 
 }

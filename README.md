@@ -1,4 +1,2 @@
-cas-datastore
-=============
-
-Catalyst::Plugin::Authentication::Store::DataStore
+Catalyst::Authentication::Store::DataStore
+==========================================

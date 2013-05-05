@@ -1,4 +1,4 @@
-package Catalyst::Plugin::Authentication::Store::DataStore;
+package Catalyst::Authentication::Store::DataStore;
 
 use 5.010;
 use strict;
@@ -6,7 +6,7 @@ use warnings FATAL => 'all';
 
 =head1 NAME
 
-Catalyst::Plugin::Authentication::Store::DataStore - The great new Catalyst::Plugin::Authentication::Store::DataStore!
+Catalyst::Authentication::Store::DataStore - The great new Catalyst::Authentication::Store::DataStore!
 
 =head1 VERSION
 
@@ -23,9 +23,9 @@ Quick summary of what the module does.
 
 Perhaps a little code snippet.
 
-    use Catalyst::Plugin::Authentication::Store::DataStore;
+    use Catalyst::Authentication::Store::DataStore;
 
-    my $foo = Catalyst::Plugin::Authentication::Store::DataStore->new();
+    my $foo = Catalyst::Authentication::Store::DataStore->new();
     ...
 
 =head1 EXPORT
@@ -55,8 +55,8 @@ Jon Sime, C<< <jonsime at gmail.com> >>
 
 =head1 BUGS
 
-Please report any bugs or feature requests to C<bug-catalyst-plugin-authentication-store-datastore at rt.cpan.org>, or through
-the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Catalyst-Plugin-Authentication-Store-DataStore>.  I will be notified, and then you'll
+Please report any bugs or feature requests to C<bug-catalyst-authentication-store-datastore at rt.cpan.org>, or through
+the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Catalyst-Authentication-Store-DataStore>.  I will be notified, and then you'll
 automatically be notified of progress on your bug as I make changes.
 
 
@@ -66,7 +66,7 @@ automatically be notified of progress on your bug as I make changes.
 
 You can find documentation for this module with the perldoc command.
 
-    perldoc Catalyst::Plugin::Authentication::Store::DataStore
+    perldoc Catalyst::Authentication::Store::DataStore
 
 
 You can also look for information at:
@@ -75,19 +75,19 @@ You can also look for information at:
 
 =item * RT: CPAN's request tracker (report bugs here)
 
-L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=Catalyst-Plugin-Authentication-Store-DataStore>
+L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=Catalyst-Authentication-Store-DataStore>
 
 =item * AnnoCPAN: Annotated CPAN documentation
 
-L<http://annocpan.org/dist/Catalyst-Plugin-Authentication-Store-DataStore>
+L<http://annocpan.org/dist/Catalyst-Authentication-Store-DataStore>
 
 =item * CPAN Ratings
 
-L<http://cpanratings.perl.org/d/Catalyst-Plugin-Authentication-Store-DataStore>
+L<http://cpanratings.perl.org/d/Catalyst-Authentication-Store-DataStore>
 
 =item * Search CPAN
 
-L<http://search.cpan.org/dist/Catalyst-Plugin-Authentication-Store-DataStore/>
+L<http://search.cpan.org/dist/Catalyst-Authentication-Store-DataStore/>
 
 =back
 
@@ -108,4 +108,4 @@ See L<http://dev.perl.org/licenses/> for more information.
 
 =cut
 
-1; # End of Catalyst::Plugin::Authentication::Store::DataStore
+1; # End of Catalyst::Authentication::Store::DataStore
