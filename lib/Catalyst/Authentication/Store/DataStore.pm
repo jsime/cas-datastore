@@ -4,6 +4,8 @@ use 5.010;
 use strict;
 use warnings FATAL => 'all';
 
+use DBIx::DataStore ( config => 'yaml' );
+
 =head1 NAME
 
 Catalyst::Authentication::Store::DataStore - The great new Catalyst::Authentication::Store::DataStore!
@@ -35,18 +37,52 @@ if you don't export anything, such as for a purely object-oriented module.
 
 =head1 SUBROUTINES/METHODS
 
-=head2 function1
+=head2 new
 
 =cut
 
-sub function1 {
+sub new {
+    my ($class, $config, $app, $realm) = @_;
+
+    my $self = bless {}, $class;
+
+    # do setup stuff
+
+    return $self;
 }
 
-=head2 function2
+=head2 find_user
 
 =cut
 
-sub function2 {
+sub find_user {
+    my ($self, $authinfo, $c) = @_;
+}
+
+=head2 for_session
+
+=cut
+
+sub for_session {
+    my ($self, $c, $user) = @_;
+}
+
+=head2 from_session
+
+=cut
+
+sub from_session {
+    my ($self, $c, $frozenuser) = @_;
+}
+
+=head2 user_supports
+
+=cut
+
+sub user_supports {
+    my @features = @_;
+
+    return Catalyst::Authentication::Store::DataStore::User::supports(@features);
 }
 
 =head1 AUTHOR
