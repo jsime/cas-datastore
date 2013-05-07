@@ -1,0 +1,21 @@
+#!include_default
+# Avoid configuration metadata file
+^MYMETA\.
+
+# Avoid Module::Build generated and utility files.
+\bBuild$
+\bBuild.bat$
+\b_build
+\bBuild.COM$
+\bBUILD.COM$
+\bbuild.com$
+^MANIFEST\.SKIP
+\bignore.txt$
+\bREADME.md$
+
+# Avoid archives of this distribution
+\bCatalyst-Authentication-Store-DataStore-[\d\.\_]+
+
+# Avoid git and vim data
+^\.git
+\.sw[a-z]$
