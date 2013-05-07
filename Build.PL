@@ -5,7 +5,7 @@ use Module::Build;
 
 my $builder = Module::Build->new(
     module_name         => 'Catalyst::Authentication::Store::DataStore',
-    license             => 'Perl_5',
+    license             => 'perl',
     dist_author         => q{Jon Sime <jonsime@gmail.com>},
     dist_version_from   => 'lib/Catalyst/Authentication/Store/DataStore.pm',
     release_status      => 'stable',
