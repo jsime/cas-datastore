@@ -6,11 +6,14 @@ use warnings;
 use base Catalyst::Authentication::User;
 
 sub new {
-    my ($class) = @_;
+    my ($class, $userdata) = @_;
 
     my $self = bless {}, $class;
 
-    # TODO setup user data
+    # TODO i may just want something that works quickly now, but others are
+    # going to want something more generic and flexible -- make that happen
+    $self->{$_} = $userdata->{$_} for grep { exists $userdata->{$_} }
+        qw( user_id email username password );
 
     return $self;
 }
