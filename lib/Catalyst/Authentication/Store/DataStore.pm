@@ -8,7 +8,8 @@ use DBIx::DataStore ( config => 'yaml' );
 
 =head1 NAME
 
-Catalyst::Authentication::Store::DataStore - The great new Catalyst::Authentication::Store::DataStore!
+Catalyst::Authentication::Store::DataStore - Authentication store for Catalyst
+based on DBIx::DataStore.
 
 =head1 VERSION
 
@@ -21,19 +22,58 @@ our $VERSION = '0.01';
 
 =head1 SYNOPSIS
 
-Quick summary of what the module does.
+    use Catalyst qw( Authentication );
+    use DBIx::DataStore;
 
-Perhaps a little code snippet.
+    my $dbh = DBIx::DataStore->new('MyApp');
 
-    use Catalyst::Authentication::Store::DataStore;
+    __PACKAGE__->config->{'authentication'} = {
+        default_realms => 'default',
+        realms => {
+            default => {
+                credential => {
+                    'class'              => 'Password',
+                    'password_field'     => 'password',
+                    'password_type'      => 'hashed',
+                    'password_hash_type' => 'SHA-1'
+                },
+                store => {
+                    class      => 'DataStore',
+                    dbh        => $dbh,
+                    user_table => 'users',
+                    user_key   => 'user_id',
+                    user_name' => 'username',
+                    role_table => 'roles',
+                    role_key   => 'role_id',
+                    role_name  => 'role_name',
+                    user_role_table    => 'user_roles',
+                    user_role_user_key => 'user_id',
+                    user_role_role_key => 'role_id'
+                }
+            }
+        }
+    };
 
-    my $foo = Catalyst::Authentication::Store::DataStore->new();
-    ...
+=head1 DESCRIPTION
 
-=head1 EXPORT
+Catalyst::Authentication::Store::DataStore provides a backend storage module for
+Catalyst that wraps DBIx::DataStore. Functionally, this module is very similar to
+the ::DBI auth store, except that it can make use of DBIx::DataStore objects
+(either newly-created ones internally, or one you pass in during setup).
 
-A list of functions that can be exported.  You can delete this section
-if you don't export anything, such as for a purely object-oriented module.
+The recommended method is to pass a DBIx::DataStore object in during setup. This
+allows the application to avoid any overhead of reconnecting to the database on
+each call (assuming you aren't using a DBI pooler), and avoids needlessly opening
+a second connection, separate from the one your application would use for all
+other database access.
+
+A word of warning, however. While most authentication checks happen before
+anything else, and would therefor be occuring before you may start sensitive
+transactions, this may not always be the case. Be mindful of situations where
+you may need to make an authentication check while your DBIx::DataStore object
+is within a transaction. You shouldn't need to worry about this module failing
+your transaction (SQL syntax errors and the like), but your open transaction
+may not have immediate visibility of account changes made by other controllers.
 
 =head1 SUBROUTINES/METHODS
 
@@ -53,8 +93,20 @@ sub new {
         $self->{'dbh'} = DBIx::DataStore->new($config->{'datastore'});
     }
 
-    $self->{'user_table'} = exists $config->{'user_table'} && $config->{'user_table'} =~ m{\w}o
-        ? $config->{'user_table'} : 'users';
+    my %defaults = (
+        user_table          => 'public.users',
+        user_key            => 'user_id',
+        user_name           => 'username',
+        role_table          => 'public.roles',
+        role_key            => 'role_id',
+        role_name           => 'role_name',
+        user_role_table     => 'public.user_roles',
+        user_role_user_key  => 'user_id',
+        user_role_role_key  => 'role_id',
+    );
+
+    $self->{$_} = exists $config->{$_} && $config->{$_} =~ m{\w}o ? $config->{$_} : $defaults{$_}
+        for keys %defaults;
 
     return $self;
 }
