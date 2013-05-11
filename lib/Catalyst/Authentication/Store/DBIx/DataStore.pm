@@ -22,6 +22,15 @@ our $VERSION = '0.01';
 
 =head1 SYNOPSIS
 
+The following example shows available configuration options for this module. When
+using the Catalyst::Plugin::Authentication module, specify the 'DBIx::DataStore'
+class for your store. If you wish to use an existing DBIx::DataStore object for
+user lookups, pass it via the 'dbh' key.
+
+The remaining options specify what tables and columns to use for looking up
+users and their roles. The example below shows the default values that will be
+used if you do not specify your own.
+
     use Catalyst qw( Authentication );
     use DBIx::DataStore;
 
@@ -40,13 +49,13 @@ our $VERSION = '0.01';
                 store => {
                     class      => 'DBIx::DataStore',
                     dbh        => $dbh,
-                    user_table => 'users',
+                    user_table => 'public.users',
                     user_key   => 'user_id',
                     user_name' => 'username',
-                    role_table => 'roles',
+                    role_table => 'public.roles',
                     role_key   => 'role_id',
                     role_name  => 'role_name',
-                    user_role_table    => 'user_roles',
+                    user_role_table    => 'public.user_roles',
                     user_role_user_key => 'user_id',
                     user_role_role_key => 'role_id'
                 }
@@ -76,6 +85,9 @@ your transaction (SQL syntax errors and the like), but your open transaction
 may not have immediate visibility of account changes made by other controllers.
 
 =head1 SUBROUTINES/METHODS
+
+None of these methods should be called directly. They are intended for use through
+the Catalyst::Plugin::Authentication interface only.
 
 =head2 new
 
@@ -166,12 +178,15 @@ Jon Sime, C<< <jonsime at gmail.com> >>
 
 =head1 BUGS
 
-Please report any bugs or feature requests to C<bug-catalyst-authentication-store-dbix-datastore at rt.cpan.org>, or through
-the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Catalyst-Authentication-Store-DBIx-DataStore>.  I will be notified, and then you'll
-automatically be notified of progress on your bug as I make changes.
+Please report any bugs or feature requests at L<https://github.com/jsime/cas-datastore/issues>.
 
+=head1 SEE ALSO
 
+=over 4
 
+=item L<Catalyst::Plugin::Authentication>
+
+=back
 
 =head1 SUPPORT
 
@@ -201,10 +216,6 @@ L<http://cpanratings.perl.org/d/Catalyst-Authentication-Store-DBIx-DataStore>
 L<http://search.cpan.org/dist/Catalyst-Authentication-Store-DBIx-DataStore/>
 
 =back
-
-
-=head1 ACKNOWLEDGEMENTS
-
 
 =head1 LICENSE AND COPYRIGHT
 
