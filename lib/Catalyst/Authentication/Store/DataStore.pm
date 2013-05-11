@@ -47,6 +47,14 @@ sub new {
     my $self = bless {}, $class;
 
     # do setup stuff
+    if (exists $config->{'dbh'} && ref($config->{'dbh'}) eq 'DBIx::DataStore') {
+        $self->{'dbh'} = $config->{'dbh'};
+    } elsif (exists $config->{'datastore'}) {
+        $self->{'dbh'} = DBIx::DataStore->new($config->{'datastore'});
+    }
+
+    $self->{'user_table'} = exists $config->{'user_table'} && $config->{'user_table'} =~ m{\w}o
+        ? $config->{'user_table'} : 'users';
 
     return $self;
 }
