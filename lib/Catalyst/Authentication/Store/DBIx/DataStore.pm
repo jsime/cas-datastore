@@ -1,4 +1,4 @@
-package Catalyst::Authentication::Store::DataStore;
+package Catalyst::Authentication::Store::DBIx::DataStore;
 
 use 5.010;
 use strict;
@@ -8,7 +8,7 @@ use DBIx::DataStore ( config => 'yaml' );
 
 =head1 NAME
 
-Catalyst::Authentication::Store::DataStore - Authentication store for Catalyst
+Catalyst::Authentication::Store::DBIx::DataStore - Authentication store for Catalyst
 based on DBIx::DataStore.
 
 =head1 VERSION
@@ -38,7 +38,7 @@ our $VERSION = '0.01';
                     'password_hash_type' => 'SHA-1'
                 },
                 store => {
-                    class      => 'DataStore',
+                    class      => 'DBIx::DataStore',
                     dbh        => $dbh,
                     user_table => 'users',
                     user_key   => 'user_id',
@@ -56,7 +56,7 @@ our $VERSION = '0.01';
 
 =head1 DESCRIPTION
 
-Catalyst::Authentication::Store::DataStore provides a backend storage module for
+Catalyst::Authentication::Store::DBIx::DataStore provides a backend storage module for
 Catalyst that wraps DBIx::DataStore. Functionally, this module is very similar to
 the ::DBI auth store, except that it can make use of DBIx::DataStore objects
 (either newly-created ones internally, or one you pass in during setup).
@@ -142,7 +142,7 @@ sub from_session {
 sub user_supports {
     my @features = @_;
 
-    return Catalyst::Authentication::Store::DataStore::User::supports(@features);
+    return Catalyst::Authentication::Store::DBIx::DataStore::User::supports(@features);
 }
 
 =head1 AUTHOR
@@ -151,8 +151,8 @@ Jon Sime, C<< <jonsime at gmail.com> >>
 
 =head1 BUGS
 
-Please report any bugs or feature requests to C<bug-catalyst-authentication-store-datastore at rt.cpan.org>, or through
-the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Catalyst-Authentication-Store-DataStore>.  I will be notified, and then you'll
+Please report any bugs or feature requests to C<bug-catalyst-authentication-store-dbix-datastore at rt.cpan.org>, or through
+the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Catalyst-Authentication-Store-DBIx-DataStore>.  I will be notified, and then you'll
 automatically be notified of progress on your bug as I make changes.
 
 
@@ -162,7 +162,7 @@ automatically be notified of progress on your bug as I make changes.
 
 You can find documentation for this module with the perldoc command.
 
-    perldoc Catalyst::Authentication::Store::DataStore
+    perldoc Catalyst::Authentication::Store::DBIx::DataStore
 
 
 You can also look for information at:
@@ -171,19 +171,19 @@ You can also look for information at:
 
 =item * RT: CPAN's request tracker (report bugs here)
 
-L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=Catalyst-Authentication-Store-DataStore>
+L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=Catalyst-Authentication-Store-DBIx-DataStore>
 
 =item * AnnoCPAN: Annotated CPAN documentation
 
-L<http://annocpan.org/dist/Catalyst-Authentication-Store-DataStore>
+L<http://annocpan.org/dist/Catalyst-Authentication-Store-DBIx-DataStore>
 
 =item * CPAN Ratings
 
-L<http://cpanratings.perl.org/d/Catalyst-Authentication-Store-DataStore>
+L<http://cpanratings.perl.org/d/Catalyst-Authentication-Store-DBIx-DataStore>
 
 =item * Search CPAN
 
-L<http://search.cpan.org/dist/Catalyst-Authentication-Store-DataStore/>
+L<http://search.cpan.org/dist/Catalyst-Authentication-Store-DBIx-DataStore/>
 
 =back
 
@@ -204,4 +204,4 @@ See L<http://dev.perl.org/licenses/> for more information.
 
 =cut
 
-1; # End of Catalyst::Authentication::Store::DataStore
+1;

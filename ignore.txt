@@ -14,5 +14,5 @@ inc/
 nytprof.out
 pod2htm*.tmp
 pm_to_blib
-Catalyst-Authentication-Store-DataStore-*
-Catalyst-Authentication-Store-DataStore-*.tar.gz
+Catalyst-Authentication-Store-DBIx-DataStore-*
+Catalyst-Authentication-Store-DBIx-DataStore-*.tar.gz

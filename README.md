@@ -1,2 +1,2 @@
-Catalyst::Authentication::Store::DataStore
-==========================================
+Catalyst::Authentication::Store::DBIx::DataStore
+================================================

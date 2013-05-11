@@ -14,7 +14,7 @@
 \bREADME.md$
 
 # Avoid archives of this distribution
-\bCatalyst-Authentication-Store-DataStore-[\d\.\_]+
+\bCatalyst-Authentication-Store-DBIx-DataStore-[\d\.\_]+
 
 # Avoid git and vim data
 ^\.git

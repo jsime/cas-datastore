@@ -1,4 +1,4 @@
-package Catalyst::Authentication::Store::DataStore::User;
+package Catalyst::Authentication::Store::DBIx::DataStore::User;
 
 use strict;
 use warnings;
