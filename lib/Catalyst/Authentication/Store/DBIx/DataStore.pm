@@ -79,6 +79,8 @@ may not have immediate visibility of account changes made by other controllers.
 
 =head2 new
 
+Initializes the C::A::S::DBIx::DataStore object.
+
 =cut
 
 sub new {
@@ -113,6 +115,10 @@ sub new {
 
 =head2 find_user
 
+Locates a user based on the credentials supplied to the authenticate method.
+Returns a Catalyst::Authentication::Store::DBIx::DataStore::User object (which
+inherits from Catalyst::Authentication::User);
+
 =cut
 
 sub find_user {
@@ -121,13 +127,20 @@ sub find_user {
 
 =head2 for_session
 
+Returns User ID for user's session.
+
 =cut
 
 sub for_session {
     my ($self, $c, $user) = @_;
+
+    return $user->id;
 }
 
 =head2 from_session
+
+Returns Catalyst::Authentication::Store::DBIx::DataStore::User object constructed
+from session data.
 
 =cut
 
@@ -136,6 +149,8 @@ sub from_session {
 }
 
 =head2 user_supports
+
+Wraps the ::User::supports() class method.
 
 =cut
 
