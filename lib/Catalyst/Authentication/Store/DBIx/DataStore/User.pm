@@ -6,9 +6,11 @@ use warnings;
 use base Catalyst::Authentication::User;
 
 sub new {
-    my ($class, $userdata) = @_;
+    my ($class, $store, $userdata) = @_;
 
     my $self = bless {}, $class;
+
+    $self->{'store'} = $store;
 
     # TODO i may just want something that works quickly now, but others are
     # going to want something more generic and flexible -- make that happen
