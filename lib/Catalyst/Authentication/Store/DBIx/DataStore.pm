@@ -107,20 +107,21 @@ sub new {
         $self->{'dbh'} = DBIx::DataStore->new($config->{'datastore'});
     }
 
-    my %defaults = (
-        user_table          => 'public.users',
-        user_key            => 'user_id',
-        user_name           => 'username',
-        role_table          => 'public.roles',
-        role_key            => 'role_id',
-        role_name           => 'role_name',
-        user_role_table     => 'public.user_roles',
-        user_role_user_key  => 'user_id',
-        user_role_role_key  => 'role_id',
-    );
+    $self->{'defaults'} = {
+        user_table          => '"public"."users"',
+        user_key            => '"user_id"',
+        user_name           => '"username"',
+        role_table          => '"public"."roles"',
+        role_key            => '"role_id"',
+        role_name           => '"role_name"',
+        user_role_table     => '"public"."user_roles"',
+        user_role_user_key  => '"user_id"',
+        user_role_role_key  => '"role_id"',
+        active              => '"active"',
+    };
 
-    $self->{$_} = exists $config->{$_} && $config->{$_} =~ m{\w}o ? $config->{$_} : $defaults{$_}
-        for keys %defaults;
+    $self->{$_} = exists $config->{$_} && $config->{$_} =~ m{\w}o ? $self->quote_id($config->{$_}) : $self->{'defaults'}{$_}
+        for keys %{$self->{'defaults'}};
 
     return $self;
 }
@@ -135,6 +136,23 @@ inherits from Catalyst::Authentication::User);
 
 sub find_user {
     my ($self, $authinfo, $c) = @_;
+
+    return undef unless exists $self->{'dbh'} && ref($self->{'dbh'}) eq 'DBIx::DataStore';
+
+    my @cols = qw( user_key user_name active );
+
+    my $sql = 'select * from ' . $self->{'user_table'} . ' where '
+        . join(' and ', map { $self->{$_} . ' = ?' }
+            sort grep { exists $authinfo->{$_} } @cols);
+
+    my $res = $self->{'dbh'}->do(
+        $sql,
+        map { $authinfo->{$_} } sort grep { exists $authinfo->{$_} } @cols
+    );
+
+    return undef unless $res && $res->next;
+
+    return Catalyst::Authentication::Store::DBIx::DataStore::User->new($self, $res);
 }
 
 =head2 for_session
@@ -157,7 +175,9 @@ from session data.
 =cut
 
 sub from_session {
-    my ($self, $c, $frozenuser) = @_;
+    my ($self, $c, $frozen) = @_;
+
+    return $self->find_user({ user_key => $frozen }, $c);
 }
 
 =head2 user_supports
@@ -170,6 +190,18 @@ sub user_supports {
     my @features = @_;
 
     return Catalyst::Authentication::Store::DBIx::DataStore::User::supports(@features);
+}
+
+=head2 quote_id
+
+=cut
+
+sub quote_id {
+    my ($self, $name) = @_;
+
+    # TODO actually quote the identifiers (split on periods; use DBI's method; be careful to not choke if the names are already quoted (and particularly if the already-quoted bits have periods in them))
+
+    return $name;
 }
 
 =head1 AUTHOR
