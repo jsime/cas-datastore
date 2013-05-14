@@ -52,6 +52,32 @@ sub id {
     return;
 }
 
+=head2 roles
+
+Returns list of roles associated with the current user.
+
+=cut
+
+sub roles {
+    my ($self) = @_;
+
+    # TODO honor the column name mappings from the store object
+
+    return undef unless exists $self->{'store'};
+    return undef unless exists $self->{'store'}{'dbh'} && ref($self->{'store'}{'dbh'}) eq 'DBIx::DataStore';
+
+    my $res = $self->{'store'}{'dbh'}->do($sql, $self->{'user_id'});
+
+    return undef unless $res;
+
+    my @roles;
+    while ($res->next) {
+        push(@roles, $res->{'role_name'});
+    }
+
+    return @roles;
+}
+
 =head2 supported_features
 
 Returns an array (or undef) indicating which Catalyst authentication, authorization,
