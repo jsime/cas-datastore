@@ -1,5 +1,6 @@
-Revision history for Catalyst-Authentication-Store-DataStore
+Revision history for Catalyst-Authentication-Store-DBIx-DataStore
 
-0.01    Date/time
-        First version, released on an unsuspecting world.
+0.010   2013-05-13
+        First version. Core functionality complete, useable as a basic
+        authentication store in Catalyst.
 
