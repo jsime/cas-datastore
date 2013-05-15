@@ -4,7 +4,10 @@ use 5.010;
 use strict;
 use warnings FATAL => 'all';
 
+use Data::Dumper;
 use DBIx::DataStore ( config => 'yaml' );
+
+use Catalyst::Authentication::Store::DBIx::DataStore::User;
 
 =head1 NAME
 
@@ -139,6 +142,8 @@ sub find_user {
 
     return undef unless exists $self->{'dbh'} && ref($self->{'dbh'}) eq 'DBIx::DataStore';
 
+    $authinfo->{'user_name'} = $authinfo->{'username'}
+        if exists $authinfo->{'username'} && !exists $authinfo->{'user_name'};
     my @cols = qw( user_key user_name active );
 
     my $sql = 'select * from ' . $self->{'user_table'} . ' where '
