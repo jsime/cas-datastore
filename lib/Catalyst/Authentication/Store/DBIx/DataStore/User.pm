@@ -3,7 +3,7 @@ package Catalyst::Authentication::Store::DBIx::DataStore::User;
 use strict;
 use warnings;
 
-use base Catalyst::Authentication::User;
+use base 'Catalyst::Authentication::User';
 
 =head1 NAME
 
@@ -61,10 +61,11 @@ Returns list of roles associated with the current user.
 sub roles {
     my ($self) = @_;
 
-    # TODO honor the column name mappings from the store object
-
     return undef unless exists $self->{'store'};
     return undef unless exists $self->{'store'}{'dbh'} && ref($self->{'store'}{'dbh'}) eq 'DBIx::DataStore';
+
+    # TODO honor the column name mappings from the store object
+    my $sql = 'select r.role_name from public.user_roles ur join public.roles r on (r.role_id = ur.role_id) where ur.user_id = ?';
 
     my $res = $self->{'store'}{'dbh'}->do($sql, $self->{'user_id'});
 
