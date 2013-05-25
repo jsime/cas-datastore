@@ -87,7 +87,12 @@ and session features are supported.
 =cut
 
 sub supported_features {
-    return undef;
+    my ($self) = @_;
+
+    return {
+        session => 1,
+        roles   => 1,
+    };
 }
 
 =head2 get
