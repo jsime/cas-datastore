@@ -16,11 +16,11 @@ based on DBIx::DataStore.
 
 =head1 VERSION
 
-Version 0.01
+Version 0.06
 
 =cut
 
-our $VERSION = '0.01';
+our $VERSION = '0.06';
 
 
 =head1 SYNOPSIS
@@ -157,7 +157,9 @@ sub find_user {
 
     return undef unless $res && $res->next;
 
-    return Catalyst::Authentication::Store::DBIx::DataStore::User->new($self, $res);
+    my $user = Catalyst::Authentication::Store::DBIx::DataStore::User->new($self, $res);
+    return $user if $user;
+    return undef;
 }
 
 =head2 for_session
