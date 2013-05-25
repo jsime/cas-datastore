@@ -1,5 +1,9 @@
 Revision history for Catalyst-Authentication-Store-DBIx-DataStore
 
+0.060   2013-05-24
+        First properly working version. Forgot to advertise to Catalyst
+        that the plugin supports sessions and roles. Oops.
+
 0.010   2013-05-13
         First version. Core functionality complete, useable as a basic
         authentication store in Catalyst.
