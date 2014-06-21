@@ -16,11 +16,11 @@ based on DBIx::DataStore.
 
 =head1 VERSION
 
-Version 0.06
+Version 0.08
 
 =cut
 
-our $VERSION = '0.06';
+our $VERSION = '0.08';
 
 
 =head1 SYNOPSIS
@@ -46,21 +46,31 @@ used if you do not specify your own.
                 credential => {
                     'class'              => 'Password',
                     'password_field'     => 'password',
+
+                    # If you choose the weak SHA-1 password supported by default
+                    # in Catalyst::Authentication::Credential::Password
                     'password_type'      => 'hashed',
-                    'password_hash_type' => 'SHA-1'
+                    'password_hash_type' => 'SHA-1',
+
+                    # Or if you prefer to pass in a much stronger password validator
+                    'password_type'      => 'self_check',
                 },
                 store => {
                     class      => 'DBIx::DataStore',
                     dbh        => $dbh,
                     user_table => 'public.users',
                     user_key   => 'user_id',
-                    user_name' => 'username',
+                    user_name  => 'username',
                     role_table => 'public.roles',
                     role_key   => 'role_id',
                     role_name  => 'role_name',
                     user_role_table    => 'public.user_roles',
                     user_role_user_key => 'user_id',
-                    user_role_role_key => 'role_id'
+                    user_role_role_key => 'role_id',
+
+                    # If you are using 'self_check' and want something other than
+                    # bcrypt(), then pass in a subroutine reference
+                    password_check => \&my_checker,
                 }
             }
         }
@@ -121,6 +131,7 @@ sub new {
         user_role_user_key  => '"user_id"',
         user_role_role_key  => '"role_id"',
         active              => '"active"',
+        password_check      => undef,
     };
 
     $self->{$_} = exists $config->{$_} && $config->{$_} =~ m{\w}o ? $self->quote_id($config->{$_}) : $self->{'defaults'}{$_}
@@ -144,7 +155,7 @@ sub find_user {
 
     $authinfo->{'user_name'} = $authinfo->{'username'}
         if exists $authinfo->{'username'} && !exists $authinfo->{'user_name'};
-    my @cols = qw( user_key user_name active );
+    my @cols = qw( user_id user_key user_name active );
 
     my $sql = 'select * from ' . $self->{'user_table'} . ' where '
         . join(' and ', map { $self->{$_} . ' = ?' }
