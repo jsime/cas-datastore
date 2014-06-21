@@ -66,8 +66,15 @@ sub roles {
     return undef unless exists $self->{'store'};
     return undef unless exists $self->{'store'}{'dbh'} && ref($self->{'store'}{'dbh'}) eq 'DBIx::DataStore';
 
-    # TODO honor the column name mappings from the store object
-    my $sql = 'select r.role_name from public.user_roles ur join public.roles r on (r.role_id = ur.role_id) where ur.user_id = ?';
+    my $sql = qq|
+        select r.$self->{'store'}{'role_name'} as role_name
+        from $self->{'store'}{'user_role_table'} ur
+            join $self->{'store'}{'role_table'} r
+                on ( r.$self->{'store'}{'role_key'}
+                     =
+                     ur.$self->{'store'}{'user_role_role_key'})
+        where ur.$self->{'store'}{'user_role_user_key'} = ?
+    |;
 
     my $res = $self->{'store'}{'dbh'}->do($sql, $self->{'user_id'});
 
