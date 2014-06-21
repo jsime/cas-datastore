@@ -1,5 +1,10 @@
 Revision history for Catalyst-Authentication-Store-DBIx-DataStore
 
+0.090   2014-06-21
+        Finally got around to using the config settings for table and
+        key names (for apps that don't put users/roles/user_roles in
+        public schema, primarily).
+
 0.080   2014-06-20
         Added support for Authen::Passphrase::BlowfishCrypt for hashing
         and matching of passphrases for ::User objects.
