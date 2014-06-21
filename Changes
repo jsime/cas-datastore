@@ -1,5 +1,12 @@
 Revision history for Catalyst-Authentication-Store-DBIx-DataStore
 
+0.080   2014-06-20
+        Added support for Authen::Passphrase::BlowfishCrypt for hashing
+        and matching of passphrases for ::User objects.
+
+0.070   2014-04-28
+        Permitted user lookups on user_id instead of simply username.
+
 0.060   2013-05-24
         First properly working version. Forgot to advertise to Catalyst
         that the plugin supports sessions and roles. Oops.

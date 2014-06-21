@@ -19,6 +19,7 @@ my $builder = Module::Build->new(
         'Catalyst::Runtime' => 0,
         'Catalyst::Plugin::Authentication' => 0,
         'DBIx::DataStore' => 0,
+        'Authen::Passphrase::BlowfishCrypt' => 0,
     },
     add_to_cleanup     => [ 'Catalyst-Authentication-Store-DBIx-DataStore-*' ],
     create_makefile_pl => 'traditional',
